@@ -1,16 +1,14 @@
 <template>
-  <div>
-      <h1>About</h1>
+  <div id="core-view">
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
-    name: "About"
-
-}
+  name: "Content",
+};
 </script>
 
 <style>
-
 </style>

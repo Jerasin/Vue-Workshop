@@ -1,20 +1,68 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
+import Login from '@/views/Login.vue'
+import Register from '@/views/Register.vue';
+import Report from '@/views/Report.vue';
+import About from '@/views/About.vue';
+import Stock from '@/views/Stock.vue';
+import StockCreate from '@/views/StockCreate.vue';
+import StockEdit from '@/views/StockEdit.vue';
+import Users from '@/views/Users.vue'
+
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
   {
     path: "/about",
+    meta: {isSecured: true},
     name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    component: About,
+  },
+  {
+    path: "/report",
+    meta: {isSecured: true},
+    name: "Report",
+    component: Report,
+  },
+  {
+    path: "/stock",
+    meta: {isSecured: true},
+    name: "Stock",
+    component: Stock,
+  },
+  {
+    path: "/stock-create",
+    meta: {isSecured: true},
+    name: "StockCreate",
+    component: StockCreate,
+  },
+  {
+    path: "/stock-edit/:id",
+    meta: {isSecured: true},
+    name: "StockEdit",
+    component: StockEdit,
+  },
+  {
+    path: "/users",
+    meta: {isSecured: true},
+    name: "Users",
+    component: Users,
+  },
+  {
+    path: "/",
+    redirect: "/login", 
+  },
+  {
+    path: "/:catchAll(.*)",
+    redirect: "/", 
   },
 ];
 
