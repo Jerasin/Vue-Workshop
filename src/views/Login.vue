@@ -1,16 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <div class="container-form">
       <form @submit.prevent="onSubmit">
         <div class="mb-3">
           <!--Start Logo Image -->
           <div class="container-img">
-            <img
-              class="img"
-              src="@/assets/login_header.jpg"
-              alt=""
-              width="260"
-            />
+            <img class="img" src="@/assets/login_header.jpg" alt="" />
             <div class="register-logo text-light">
               <b>Login</b>
             </div>
@@ -66,14 +61,24 @@
 
 <script>
 import { reactive, ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default {
   name: "Login",
   setup() {
     const form = reactive({ email: "", password: "" });
+    const router = useRouter();
     const disabledbtn = ref(true);
+    const store = useStore();
     const onSubmit = () => {
-      console.log(form);
-      alert(JSON.stringify(form));
+      // console.log(form);
+      // alert(JSON.stringify(form));
+      store.dispatch({
+        type: "doLogin",
+        email: form.email,
+        password: form.password,
+      });
+      router.push("/stock");
     };
 
     return { form, onSubmit, disabledbtn };
@@ -83,7 +88,7 @@ export default {
 
 <style scoped>
 .container-form {
-  margin-top: 180px;
+  margin-top: 150px;
   width: 100%;
   max-width: 300px;
   margin-left: auto;
@@ -93,16 +98,11 @@ export default {
   background-color: rgb(68, 79, 91);
 }
 
-.container-form {
-  margin-top: 180px;
+.img {
   width: 100%;
-  max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-  border: 2px solid gray;
-  padding: 15px;
-  background-color: rgb(68, 79, 91);
+  max-width: 260px;
 }
+
 .container-img {
   position: relative;
 }

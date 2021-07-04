@@ -1,7 +1,7 @@
 <template>
-  <Navbar v-if="false" />
-  <Content v-if="true" />
-  <Sidebar v-if="false" />
+  <Navbar v-if="$store.state.isLogined" />
+  <Content v-if="!$store.state.isLogined" />
+  <Sidebar v-if="$store.state.isLogined" />
   <!-- <Footer /> -->
 </template>
 
@@ -18,6 +18,10 @@ export default {
     Sidebar,
     // Footer,
   },
+  mounted(){
+    this.$store.dispatch({type: "restoreLogin"})
+
+  }
 };
 </script>
 

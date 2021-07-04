@@ -1,8 +1,13 @@
 <template>
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
-      <span class="navbar-brand" >Vue3 WorkShop</span>
+      <span class="navbar-brand text-light">Vue3 WorkShop</span>
+
+      <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+      <span class="nav-link tab-status active text-light"
+        >User: {{ $store.getters.email }}</span
+      >
+
     </div>
   </nav>
 </template>
@@ -12,18 +17,13 @@ export default {
   name: "Navbar",
   data() {
     return {
-      show: true,
+      show: false,
     };
-  },
-  methods: {
-    toggleNavbar() {
-      this.show = !this.show;
-    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .side-navbar {
   width: 180px;
   height: 100%;
@@ -52,9 +52,17 @@ export default {
   margin-left: 180px;
 }
 
-#menu-btn {
-  background-color: #100901;
-  color: #fff;
-  margin-left: -62px;
+@media only screen and (max-width: 992px) {
+  .test {
+    display: block;
+  }
 }
+
+@media only screen and (max-width: 401px) {
+  .tab-status {
+    display: none;
+  }
+
+}
+
 </style>

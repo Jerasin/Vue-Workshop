@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row flex-nowrap">
-      <div class="col-auto col-sm-2 px-sm-2 px-0 bg-dark ">
+      <div class="col-auto col-xl-2 px-sm-2 px-0 bg-dark">
         <div
           class="
             d-flex
@@ -16,7 +16,7 @@
           <!-- Start Main Sidebar -->
 
           <!--Start buttom Meun -->
-          <span
+          <div
             class="
               fs-5
               d-none d-sm-inline d-flex
@@ -24,11 +24,15 @@
               pb-3
               mb-md-0
               me-md-auto
+              text-align-center
+              fs-4
               text-white text-decoration-none
             "
-            >Menu</span
           >
+            <b>Menu</b>
+          </div>
           <!--End buttom Meun -->
+
 
           <!-- Start List Menu -->
           <ul
@@ -40,26 +44,19 @@
             "
             id="menu"
           >
-            <!-- Start  Menu DashBoard -->
-            <li class="nav-item">
-              <div class="nav-link align-middle px-0">
-                <font-awesome-icon class="me-2" icon="phone" />
-                <span class="ms-1 d-none d-sm-inline text-warning"
-                  >DashBoard</span
-                >
-              </div>
-            </li>
-            <!-- End  Menu DashBoard -->
-
             <!-- Start  Menu Stock -->
             <li>
               <div data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                 <router-link class="text-decoration-none" to="/stock">
-                  <i class="fas fa-warehouse me-2"></i>
-                  <span class="ms-1 d-none d-sm-inline text-warning"
-                    >Stock</span
-                  ></router-link
-                >
+                  <div class="row">
+                    <div class="col icon"><i class="fas fa-warehouse" /></div>
+                    <div class="col d-none d-sm-block">
+                      <span class="ms-1 d-none d-sm-inline text-warning">
+                        Stock
+                      </span>
+                    </div>
+                  </div>
+                </router-link>
               </div>
             </li>
             <!-- End  Menu Stock -->
@@ -68,11 +65,15 @@
             <li>
               <div class="nav-link px-0 align-middle">
                 <router-link class="text-decoration-none" to="/report">
-                  <i class="fas fa-file-alt me-2"></i>
-                  <span class="ms-1 d-none d-sm-inline text-warning"
-                    >Report</span
-                  ></router-link
-                >
+                  <div class="row">
+                    <div class="col icon"><i class="fas fa-file-alt" /></div>
+                    <div class="col d-none d-sm-block">
+                      <span class="ms-1 d-none d-sm-inline text-warning">
+                        Report
+                      </span>
+                    </div>
+                  </div>
+                </router-link>
               </div>
             </li>
             <!-- End  Menu Report -->
@@ -81,11 +82,15 @@
             <li>
               <div data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                 <router-link class="text-decoration-none" to="/about">
-                  <i class="fas fa-book-open me-2"></i>
-                  <span class="ms-1 d-none d-sm-inline text-warning"
-                    >About</span
-                  ></router-link
-                >
+                  <div class="row">
+                    <div class="col icon"><i class="fas fa-book-open" /></div>
+                    <div class="col d-none d-sm-block">
+                      <span class="ms-1 d-none d-sm-inline text-warning">
+                        About
+                      </span>
+                    </div>
+                  </div>
+                </router-link>
               </div>
             </li>
             <!-- End  Menu About -->
@@ -94,51 +99,40 @@
             <li>
               <div data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                 <router-link class="text-decoration-none" to="/users">
-                  <i class="fas fa-users me-2"></i>
-                  <span class="ms-1 d-none d-sm-inline text-warning"
-                    >User</span
-                  ></router-link
-                >
+                  <div class="row">
+                    <div class="col icon"><i class="fas fa-users me-2" /></div>
+                    <div class="col d-none d-sm-block">
+                      <span class="ms-1 d-none d-sm-inline text-warning"
+                        >User
+                      </span>
+                    </div>
+                  </div>
+                </router-link>
+              </div>
+            </li>
+            <!-- End  Menu About -->
+
+            <!-- Start  Menu Logout -->
+            <li>
+              <div data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                <div class="row">
+                  <div class="col icon" @click="isLogOut">
+                    <i class="fas fa-sign-out-alt me-2 logout"/>
+                  </div>
+                  <div class="col d-none d-sm-block">
+                    <span
+                      class="ms-1 d-none d-sm-inline text-warning logout"
+                      @click="isLogOut"
+                    >
+                      Logout
+                    </span>
+                  </div>
+                </div>
               </div>
             </li>
             <!-- End  Menu About -->
           </ul>
           <!-- End Main Sidebar -->
-
-          <hr />
-
-          <div class="dropdown pb-4">
-            <a
-              href="#"
-              class="
-                d-flex
-                align-items-center
-                text-white text-decoration-none
-                dropdown-toggle
-              "
-              id="dropdownUser1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                src="https://github.com/mdo.png"
-                alt="hugenerd"
-                width="30"
-                height="30"
-                class="rounded-circle"
-              />
-              <span class="d-none d-sm-inline mx-1">loser</span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-              <li><a class="dropdown-item" href="#">New project...</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-          </div>
         </div>
       </div>
       <div class="col py-3">
@@ -150,17 +144,37 @@
 
 <script>
 import Content from "@/components/core/Content";
+import { useStore } from "vuex";
 export default {
   name: "Sidebar",
   components: {
     Content,
   },
+  setup() {
+    const store = useStore();
+    const isLogOut = () => {
+      store.dispatch({
+        type: "doLogout",
+      });
+    };
+
+    return { isLogOut };
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .link {
   list-style-type: none;
 }
 
+.logout {
+  cursor: pointer;
+}
+
+.icon {
+  width: 45px;
+  text-align: start;
+  padding: 0px 10px;
+}
 </style>
