@@ -19,7 +19,7 @@
           <div
             class="
               fs-5
-              d-none d-sm-inline d-flex
+              d-sm-inline d-flex
               align-items-center
               pb-3
               mb-md-0
@@ -32,7 +32,6 @@
             <b>Menu</b>
           </div>
           <!--End buttom Meun -->
-
 
           <!-- Start List Menu -->
           <ul
@@ -49,7 +48,10 @@
               <div data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                 <router-link class="text-decoration-none" to="/stock">
                   <div class="row">
-                    <div class="col icon"><i class="fas fa-warehouse" /></div>
+                    <div class="col icon hover">
+                      <i class="fas fa-warehouse" />
+                      <span class="tooltiptext">Stock</span>
+                    </div>
                     <div class="col d-none d-sm-block">
                       <span class="ms-1 d-none d-sm-inline text-warning">
                         Stock
@@ -66,7 +68,10 @@
               <div class="nav-link px-0 align-middle">
                 <router-link class="text-decoration-none" to="/report">
                   <div class="row">
-                    <div class="col icon"><i class="fas fa-file-alt" /></div>
+                    <div class="col icon hover">
+                      <i class="fas fa-file-alt" />
+                      <span class="tooltiptext">Report</span>
+                    </div>
                     <div class="col d-none d-sm-block">
                       <span class="ms-1 d-none d-sm-inline text-warning">
                         Report
@@ -83,7 +88,10 @@
               <div data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                 <router-link class="text-decoration-none" to="/about">
                   <div class="row">
-                    <div class="col icon"><i class="fas fa-book-open" /></div>
+                    <div class="col icon hover">
+                      <i class="fas fa-book-open" />
+                      <span class="tooltiptext">About</span>
+                    </div>
                     <div class="col d-none d-sm-block">
                       <span class="ms-1 d-none d-sm-inline text-warning">
                         About
@@ -100,7 +108,10 @@
               <div data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                 <router-link class="text-decoration-none" to="/users">
                   <div class="row">
-                    <div class="col icon"><i class="fas fa-users me-2" /></div>
+                    <div class="col icon hover">
+                      <i class="fas fa-users me-2" />
+                      <span class="tooltiptext">User</span>
+                    </div>
                     <div class="col d-none d-sm-block">
                       <span class="ms-1 d-none d-sm-inline text-warning"
                         >User
@@ -116,12 +127,13 @@
             <li>
               <div data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                 <div class="row">
-                  <div class="col icon" @click="isLogOut">
-                    <i class="fas fa-sign-out-alt me-2 logout"/>
+                  <div class="col icon hover" @click="isLogOut">
+                    <i class="fas fa-sign-out-alt me-2 logout" />
+                    <span class="tooltiptext">Logout</span>
                   </div>
-                  <div class="col d-none d-sm-block">
+                  <div class="col d-none test d-sm-block">
                     <span
-                      class="ms-1 d-none d-sm-inline text-warning logout"
+                      class="ms-1 d-sm-inline text-warning logout"
                       @click="isLogOut"
                     >
                       Logout
@@ -172,9 +184,29 @@ export default {
   cursor: pointer;
 }
 
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(0, 0, 0, 0.476);
+  color: rgb(201, 201, 201);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 999;
+}
+
 .icon {
   width: 45px;
   text-align: start;
   padding: 0px 10px;
+}
+
+@media only screen and (max-width: 400px) {
+  .hover:hover .tooltiptext {
+    visibility: visible;
+  }
 }
 </style>
