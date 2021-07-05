@@ -60,6 +60,10 @@ export default {
 </script>
 
 <style scoped>
+img{
+  color: #fff
+}
+
 .img-sale {
   width: 120px;
   border: 4px solid red;
@@ -76,7 +80,7 @@ export default {
 
 .box-total-img {
   width: 100%;
-  background-color: rgb(5, 255, 5);
+  background-color: #C5FF9E;
   border : 2px solid black;
   margin: 3px;
 }
@@ -87,7 +91,7 @@ export default {
 
 .box-soldout-img {
   width: 100%;
-  background-color: orange;
+  background-color: #FFCC5F;
   border : 2px solid black;
   margin: 3px;
 }
@@ -98,7 +102,7 @@ export default {
 
 .box-return-img {
   width: 100%;
-  background-color: red;
+  background-color: #FF7979;
   border : 2px solid black;
   margin: 3px;
 }
@@ -109,7 +113,7 @@ export default {
 
 .box-discount-img {
   width: 100%;
-  background-color: rgb(0, 229, 255);
+  background-color: #83FFF3;
   border : 2px solid black;
   margin: 3px;
 }

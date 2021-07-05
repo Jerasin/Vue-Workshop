@@ -204,7 +204,7 @@ export default {
   padding: 0px 10px;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 574px) {
   .hover:hover .tooltiptext {
     visibility: visible;
   }
