@@ -1,6 +1,5 @@
 <template>
   <Navbar v-if="checkToken()" />
-  <span>{{ checkToken() }}</span>
   <Content v-if="!checkToken()" />
   <Sidebar v-if="checkToken()" />
   <!-- <Footer /> -->
@@ -24,7 +23,7 @@ export default {
     const store = useStore();
     const checkToken =  () => {
       const token =  localStorage.getItem("token");
-      if (store.state.isLogin && token) {
+      if (store.state.authen.isLogin && token) {
         return true;
       } else {
         return false;
@@ -36,8 +35,8 @@ export default {
   mounted() {
     this.$store.dispatch({ type: "restoreLogin" });
     // console.log(this.checkToken())
-    console.log(this.$store.state.isLogin);
-    console.log("token", this.tokn);
+    // console.log(this.$store.state.authen.isLogin);
+    // console.log("token", this.token);
   },
 };
 </script>

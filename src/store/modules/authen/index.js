@@ -1,49 +1,32 @@
 import { register, isLogin, login, logout } from "../../../services/api";
-// import mutations from "./mutations";
 
-export default {
-  state() {
-    return {};
-  },
-  getters: {
-    isLogin(state) {
-      return state.isLogin;
-    },
-  },
+export const authen = {
+  state: () => ({
+    isLogin: false,
+    isFetching: false,
+    isRegister: null,
+    isDuplicate: null,
+  }),
   mutations: {
     SET_FETCHING(state) {
       state.isFetching = true;
-      state.isLogin = false;
-      state.isRegister = false;
-      state.isDuplicate = false;
     },
 
     SET_REGISTER(state, value) {
-      state.isFetching = false;
-      state.isLogin = false;
       state.isRegister = value;
-      state.isDuplicate = false;
     },
 
     SET_LOGINED_IN(state) {
-      // state.obj.isFetching = false;
       state.isLogin = true;
-      // state.obj.isRegister = false;
-      // state.obj.isDuplicate = false;
-      // console.log(state.obj.isFetching)
     },
 
     SET_LOGOUT(state) {
-      state.isFetching = false;
       state.isLogin = false;
-      state.isRegister = false;
-      state.isDuplicate = false;
     },
   },
   actions: {
     restoreLogin({ commit, dispatch }) {
       if (isLogin()) {
-        // commit("SET_FETCHING");
         commit("SET_LOGINED_IN");
       } else {
         dispatch("doLogout", {});
@@ -53,7 +36,6 @@ export default {
     isRegistered({ commit }, { form }) {
       let result = register({ form });
       console.log(result);
-      commit("SET_REGISTER");
       commit("SET_REGISTER", form);
     },
 
