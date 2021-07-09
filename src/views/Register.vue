@@ -56,20 +56,30 @@
 
 <script>
 import { reactive } from "vue";
+import { useStore } from "vuex";
+
 export default {
   name: "Register",
   setup() {
     const form = reactive({ email: "", password: "" });
+    const store = useStore();
     const regularEmail = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-    const regularPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    const onSubmit = () => {
+    const regularPassword =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    const onSubmit = async () => {
       if (regularEmail.test(form.email) === false) {
-       return  alert("Please Check Email");
+        return alert("Please Check Email");
       }
       if (regularPassword.test(form.password) === false) {
-       return  alert("Please Check Minimum eight characters, at least one letter, one number and one special character:");
+        return alert(
+          "Please Check Minimum eight characters, at least one letter, one number and one special character:"
+        );
       }
-      alert("Save");
+
+      store.dispatch({
+        type: "isRegistered",
+        form: form,
+      });
     };
 
     return { form, onSubmit };
@@ -79,7 +89,7 @@ export default {
 
 <style scoped>
 .container-form {
-  margin-top: 180px;
+  margin-top: 150px;
   width: 100%;
   max-width: 300px;
   margin-left: auto;

@@ -72,8 +72,6 @@ export default {
     const disabledbtn = ref(true);
     const store = useStore();
     const onSubmit = () => {
-      // console.log(form);
-      // alert(JSON.stringify(form));
       store.dispatch({
         type: "doLogin",
         email: form.email,
@@ -91,6 +89,7 @@ export default {
 .container-form {
   margin-top: 150px;
   width: 100%;
+  height: 100%;
   max-width: 300px;
   margin-left: auto;
   margin-right: auto;

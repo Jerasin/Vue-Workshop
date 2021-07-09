@@ -27,6 +27,9 @@
               text-align-center
               fs-4
               text-white text-decoration-none
+              d-none
+              d-md-block
+              
             "
           >
             <b>Menu</b>
@@ -147,7 +150,7 @@
           <!-- End Main Sidebar -->
         </div>
       </div>
-      <div class="col py-3">
+      <div class="table-responsive col p-2 ">
         <Content />
       </div>
     </div>

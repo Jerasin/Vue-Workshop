@@ -1,0 +1,1 @@
+npm i express-jwt express cors formidable bcryptjs formidable fs-extra morgan mysql2 sequelize compression jsonwebtoken

@@ -1,54 +1,47 @@
 import { createStore } from "vuex";
-import { isLogin, login , logout } from "../services/api";
-import { server } from "../services/constants";
+// import actions from './modules/authen/actions'
+import Authen from "./modules/authen/index";
+
+// import { register, isLogin, login, logout } from "../services/api";
 
 export default createStore({
   state: {
-    isLogined: false,
-    email: "",
-  },
-  getters: {
-    isLogin(state) {
-      return state.isLogined;
-    },
-    email(state) {
-      return state.email.split("@")[0];
-    },
+    isLogin: false,
+    isFetching: false,
+    isRegister: null,
+    isDuplicate: null,
   },
   mutations: {
-    SET_LOGINED_IN(state) {
-      state.isLogined = true;
-    },
-    SET_LOGOUT(state) {
-      state.isLogined = false;
-    },
-    SET_EMAIL(state, value) {
-      state.email = value;
-    },
-  },
-  actions: {
-    restoreLogin({ commit }) {
-      if (isLogin() == true) {
-        let email = localStorage.getItem(server.EMAIL);
-        commit("SET_LOGINED_IN");
-        commit("SET_EMAIL", email);
-      }
+    SET_FETCHING(state) {
+      state.isFetching = true;
+      state.isLogin = false;
+      state.isRegister = false;
+      state.isDuplicate = false;
     },
 
-    doLogin({ commit, dispatch }, { email }) {
-      let result = login({ email });
-      if (result == true) {
-        commit("SET_LOGINED_IN");
-        commit("SET_EMAIL", email);
-      } else {
-        dispatch("doLogout", {});
-      }
+    SET_REGISTER(state, value) {
+      state.isFetching = false;
+      state.isLogin = false;
+      state.isRegister = value;
+      state.isDuplicate = false;
     },
-    doLogout({ commit }) {
-      logout();
-      commit("SET_LOGOUT");
-      commit("SET_EMAIL", "");
+
+    SET_LOGINED_IN(state) {
+      // state.obj.isFetching = false;
+      state.isLogin = true;
+      // state.obj.isRegister = false;
+      // state.obj.isDuplicate = false;
+      // console.log(state.obj.isFetching)
+    },
+
+    SET_LOGOUT(state) {
+      state.isFetching = false;
+      state.isLogin = false;
+      state.isRegister = false;
+      state.isDuplicate = false;
     },
   },
-  modules: {},
+  modules: {
+    Authen,
+  },
 });
