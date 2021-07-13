@@ -14,7 +14,17 @@ const mysql = require('mysql2');
 const sequelize = new Sequelize("master_shop", "root", "Jc@123456", {
   host: "localhost",
   dialect: "mysql", /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
-  logging: console.log, 
+  logging: console.log,
+  // query: {
+  //   raw: true
+  // },
+  // logging:true,
+  dialectOptions: {
+        useUTC: false, //for reading from database
+        dateStrings: true,
+        typeCast: true
+  },
+  timezone: '+07:00' //for writing to database
 });
 
 (

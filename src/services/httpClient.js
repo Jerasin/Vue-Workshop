@@ -24,7 +24,7 @@ axios.interceptors.request.use(async (config) => {
     // ? ใช้แล้ว Error
     // const token = JSON.parse(localStorage.getItem("localID"));
 
-    const token = localStorage.getItem("localID");
+    const token = localStorage.getItem("token");
     
     config.headers.Authorization = token ? "Bearer" + " " + token : "";
   }

@@ -62,22 +62,25 @@
 <script>
 import { reactive, ref } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 
 export default {
   name: "Login",
+  mounted() {
+    this.$store.dispatch({ type: "restoreLogin" });
+  },
   setup() {
     const form = reactive({ email: "", password: "" });
-    const router = useRouter();
+    // const router = useRouter();
     const disabledbtn = ref(true);
     const store = useStore();
+
     const onSubmit = () => {
       store.dispatch({
         type: "doLogin",
         email: form.email,
         password: form.password,
       });
-      router.push("/stock");
     };
 
     return { form, onSubmit, disabledbtn };

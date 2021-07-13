@@ -9,6 +9,7 @@
 import Navbar from "@/components/core/Navbar";
 import Sidebar from "@/components/core/Sidebar";
 import Content from "@/components/core/Content";
+// import jwt_decode from "jwt-decode";
 import { useStore } from "vuex";
 // import Footer from '@/components/core/Footer'
 export default {
@@ -21,22 +22,26 @@ export default {
   },
   setup() {
     const store = useStore();
-    const checkToken =  () => {
-      const token =  localStorage.getItem("token");
-      if (store.state.authen.isLogin && token) {
-        return true;
-      } else {
-        return false;
+    const checkToken = () => {
+      try {
+        const token = localStorage.getItem("token");
+        // const decode = jwt_decode(token);
+        if (store.state.authen.isLogin && token) {
+          return token;
+        } 
+        
+      } catch (err) {
+        localStorage.clear();
       }
     };
 
-    return { checkToken};
+    return { checkToken  };
   },
   mounted() {
     this.$store.dispatch({ type: "restoreLogin" });
-    // console.log(this.checkToken())
-    // console.log(this.$store.state.authen.isLogin);
-    // console.log("token", this.token);
+
+    console.log(this.$store.state.authen.isLogin);
+    // console.log("token", this.testtoken);
   },
 };
 </script>

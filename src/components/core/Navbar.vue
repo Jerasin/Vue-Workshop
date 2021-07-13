@@ -5,7 +5,7 @@
 
       <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
       <span class="nav-link tab-status active text-light"
-        >User: {{ $store.getters.email }}</span
+        >User: {{ email }}</span
       >
 
     </div>
@@ -13,11 +13,17 @@
 </template>
 
 <script>
+import jwt_decode from 'jwt-decode'
 export default {
   name: "Navbar",
+  mounted() {
+      const token =  localStorage.getItem("token");
+      const decode = jwt_decode(token);
+      this.email = decode.email;
+  },
   data() {
     return {
-      show: false,
+      email: null,
     };
   },
 };
@@ -58,7 +64,7 @@ export default {
   }
 }
 
-@media only screen and (max-width: 401px) {
+@media only screen and (max-width: 458px) {
   .tab-status {
     display: none;
   }

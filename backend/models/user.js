@@ -30,6 +30,11 @@ const user = sequelize.define(
       allowNull: false,
       defaultValue: "user",
     },
+    user_role: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: 1,
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -46,12 +51,6 @@ const user = sequelize.define(
   }
 );
 
-(async () => {
-  await sequelize.authenticate();
-})();
 
-(async () => {
-  await user.sync({ force: false });
-})();
 
 module.exports = user;

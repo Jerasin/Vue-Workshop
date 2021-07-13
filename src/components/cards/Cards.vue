@@ -4,14 +4,14 @@
     <div class="row justify-content-md-center align-items-center">
       <div class="col-auto col-xl-3 col-xxl-3 p-0 align-self-center box">
         <div class="box-total-text">
-          <h3>Total</h3>
+          <h3>Product:</h3>
         </div>
 
         <div class="box-total-img d-flex justify-content-center">
           <img class="img" src="@/assets/shopping-cart.png" alt="" />
         </div>
 
-        <p>18</p>
+        <p>{{ count }}</p>
       </div>
 
       <div class="col-auto col-xl-3 col-xxl-3 p-0 align-self-center box">
@@ -54,14 +54,17 @@
 </template>
 
 <script>
+// import { ref, onMounted } from "vue";
+// import { useStore } from "vuex";
 export default {
   name: "Cards",
+  props: ["count"],
 };
 </script>
 
 <style scoped>
-img{
-  color: #fff
+img {
+  color: #fff;
 }
 
 .img-sale {
@@ -80,8 +83,8 @@ img{
 
 .box-total-img {
   width: 100%;
-  background-color: #C5FF9E;
-  border : 2px solid black;
+  background-color: #c5ff9e;
+  border: 2px solid black;
   margin: 3px;
 }
 
@@ -91,8 +94,8 @@ img{
 
 .box-soldout-img {
   width: 100%;
-  background-color: #FFCC5F;
-  border : 2px solid black;
+  background-color: #ffcc5f;
+  border: 2px solid black;
   margin: 3px;
 }
 
@@ -102,8 +105,8 @@ img{
 
 .box-return-img {
   width: 100%;
-  background-color: #FF7979;
-  border : 2px solid black;
+  background-color: #ff7979;
+  border: 2px solid black;
   margin: 3px;
 }
 
@@ -113,8 +116,8 @@ img{
 
 .box-discount-img {
   width: 100%;
-  background-color: #83FFF3;
-  border : 2px solid black;
+  background-color: #83fff3;
+  border: 2px solid black;
   margin: 3px;
 }
 
@@ -207,9 +210,7 @@ p {
   .col-auto {
     width: 100%;
   }
-
 }
-
 
 @media only screen and (max-width: 500px) {
   h3 {

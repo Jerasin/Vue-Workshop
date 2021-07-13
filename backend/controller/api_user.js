@@ -23,6 +23,9 @@ router.post("/login", async (req, res) => {
         const token = createToken(result.dataValues.email , result.dataValues.user_role )
         return res.status(200).json({ status: 200, result: token });
       }
+      else{
+        return res.status(200).json({ status: 404, result: "Password not Found" });
+      }
     }
   } catch (err) {
     console.log(err)

@@ -1,15 +1,14 @@
 <template>
   <div class="container-fluid p-0">
-    <Cards />
+    <Cards :count="count" />
 
     <div class="container-fluid mt-5 p-0">
       <div class="row justify-content-center">
-       
-            <h3>Stock</h3>
-            <router-link to="/stock-create">
-              <button class="btn btn-primary mb-2">Create Product</button>
-            </router-link>
-             <div class="col col-10 bg-light p-0">
+        <h3>Stock</h3>
+        <router-link to="/stock-create">
+          <button class="btn btn-primary mb-2">Create Product</button>
+        </router-link>
+        <div class="col col-10 bg-light p-0">
           <div class="table table-responsive-sm">
             <table
               class="
@@ -19,42 +18,46 @@
                 text-center
               "
             >
+              <!-- <span>{{ data }}</span> -->
+              <!-- <span>{{ $store.state.product.isGet }}</span> -->
               <thead>
                 <tr>
-                  <th scope="col">Id</th>
+                  <th scope="col">Product Code</th>
                   <th scope="col">Product Name</th>
                   <th scope="col">Product Stock</th>
                   <th scope="col">Product Price</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
+
               <tbody>
-                <!-- <tr
+                <tr
                   v-for="{
                     id,
+                    product_code,
                     product_name,
                     product_price,
                     product_stock,
                   } in data"
                   :key="id"
                 >
-                  <th scope="row">{{ id }}</th>
+                  <th scope="row">{{ product_code }}</th>
                   <td>{{ product_name }}</td>
                   <td>{{ product_stock }}</td>
                   <td>{{ product_price }}</td>
                   <td>
-                    <i class="fas fa-edit me-3 pointer" />
-                    <i class="fas fa-trash pointer" />
+                    <span @click="editItem(id)">
+                      <i class="fas fa-edit me-3 pointer" />
+                    </span>
+                    <span @click="deleteItem(id)">
+                      <i class="fas fa-trash pointer" />
+                    </span>
                   </td>
-                </tr> -->
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
-      </div>
-      <div class="loading" v-if="isLoading">Loading ...</div>
-      <div v-else-if="error">
-        {{ error.message }} <button @click="fetchData">try again</button>
       </div>
 
       <nav aria-label="Page navigation example">
@@ -72,10 +75,10 @@
 
 <script>
 import Cards from "@/components/cards/Cards.vue";
-import axios from "axios";
+import router from "@/router/index";
+import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
 
-import { ref } from "vue";
-import { server, apiUrl } from "../constatns";
 export default {
   name: "Stock",
   components: {
@@ -83,27 +86,54 @@ export default {
   },
   setup() {
     const isLoading = ref(false);
-    const error = ref(null);
-    const data = ref(null);
 
-    const fetchData = async () => {
-      isLoading.value = true;
-      try {
-        const json = await axios.get(apiUrl + server.GET_PRODUCT_URL);
-        data.value = json.data.result;
-        isLoading.value = false;
-        console.log("Stock Component is Run");
-      } catch (err) {
-        localStorage.clear();
-        console.log(err);
-      }
+    const store = useStore();
+    const data = ref(null);
+    const count = ref(null);
+
+    onMounted(async () => {
+      await loadProducts();
+      await setCount();
+    });
+
+    const loadProducts = async () => {
+      await store.dispatch({
+        type: "getProducts",
+      });
+      // console.log(JSON.parse(JSON.stringify(store.state.stock.isGet.data.count)))
+      data.value = JSON.parse(
+        JSON.stringify(store.state.stock.isGet.data.result)
+      );
     };
 
-    return { fetchData, isLoading, error, data };
-  },
-  async mounted() {
-    // this.fetchData();
-    // console.log(this.$store.state.isLogin)
+    const setCount = () => {
+      count.value = JSON.parse(
+        JSON.stringify(store.state.stock.isGet.data.count)
+      );
+    };
+
+    const deleteItem = async (id) => {
+      // console.log("isLoading");
+      isLoading.value = true;
+      await store.dispatch({ type: "deleteItem", id: id });
+      await loadProducts();
+      await setCount();
+      isLoading.value = false;
+    };
+
+    const editItem = (data) => {
+      router.push(`/stock-edit/${data}`);
+    };
+
+    return {
+      editItem,
+      loadProducts,
+      data,
+      deleteItem,
+      isLoading,
+      setCount,
+      count,
+    };
   },
 };
 </script>

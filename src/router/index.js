@@ -9,6 +9,7 @@ import StockCreate from "@/views/StockCreate.vue";
 import StockEdit from "@/views/StockEdit.vue";
 import Users from "@/views/Users.vue";
 
+
 const routes = [
   {
     path: "/login",
@@ -73,16 +74,13 @@ const router = createRouter({
   routes,
 });
 
-
 // ? Logic เช็คว่า Private Route หรือ Public Route
 router.beforeEach((to, from, next) => {
   if (to.meta.isSecured && !localStorage.getItem("token")) {
     next("/login");
-  }
-  else if (!to.meta.isSecured && localStorage.getItem("token")){
+  } else if (!to.meta.isSecured && localStorage.getItem("token")) {
     next("/stock");
-  }
-  else{
+  } else {
     next();
   }
 });

@@ -1,39 +1,29 @@
 import { server } from "@/constatns";
 import router from "@/router";
-import {httpClient} from './httpClient';
+import { httpClient } from "./httpClient";
+// import Swal from "sweetalert2";
+import jwt_decode from "jwt-decode";
 
 export const login = async (value) => {
-  let result = await httpClient.post(server.LOGIN_URL, value);
-  // console.log(result.data.status)
-  if(result.data.status === 200){
-    console.log(result.data.status)
-    localStorage.setItem("token" , result.data.result)
-    router.push('/stock')
-    return result.data.result
-  }
-  else{
-      return alert("Error");
-  }
-  
+  return await httpClient.post(server.LOGIN_URL, value);
 };
 
 export const register = async (value) => {
-  let result = await httpClient.post(server.REGISTER_URL, value.form);
-  if (result.data.status === 404) {
-    return alert("Please Check Email");
-  }
-  if (result.data.status === 200) {
-    alert(JSON.stringify(result.data));
-    return router.push("/login");
-  }
-}
+  return await httpClient.post(server.REGISTER_URL, value.form);
+  
+};
 
 export const isLogin = () => {
-  let token = localStorage.getItem("token");
-  return token ;
+  try {
+    let token = localStorage.getItem("token");
+    const decode = jwt_decode(token);
+    return decode;
+  } catch (err) {
+    return false;
+  }
 };
 
 export const logout = () => {
-    localStorage.clear();
-    router.push("/login");
-}
+  localStorage.clear();
+  router.push("/login");
+};
