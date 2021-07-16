@@ -6,6 +6,7 @@
       <div class="row justify-content-center">
         <h3>Stock</h3>
         <router-link to="/stock-create">
+        <hr>
           <button class="btn btn-primary mb-2">Create Product</button>
         </router-link>
         <div class="col col-10 bg-light p-0">

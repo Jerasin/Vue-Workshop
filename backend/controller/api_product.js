@@ -18,10 +18,10 @@ router.get("/products", authorization, async (req, res) => {
       { where: { product_active: 1 } }
     );
 
-    const count = await product.count()
+    const count = await product.count();
 
     console.log(count);
-    res.status(200).json({ status: 200, result: result , count: count});
+    res.status(200).json({ status: 200, result: result, count: count });
   } catch (err) {
     //   res.status(500).json({status: 500 , result: err})
     console.log(err);
@@ -83,8 +83,11 @@ router.post("/product", authorization, (req, res) => {
   }
 });
 
+//? function UploadImage
 uploadImage = async (files, doc) => {
   try {
+    console.log("files.product_image.name", files.product_image.name);
+    console.log("doc", doc);
     const fileExtention = files.product_image.name.split(".")[1];
 
     // Custom Filename Ex: (product_id = 1150) + (fileExtention = .pdf)
@@ -115,22 +118,102 @@ uploadImage = async (files, doc) => {
   }
 };
 
-router.delete("/product/:id", async (req, res) => {
+//? Delete Product
+router.delete("/product/:id", authorization, async (req, res) => {
   const { id } = req.params;
-  try{
+  try {
+    const deleteImg = await product.findOne({
+      where: { id: id },
+    });
+
     const result = await product.destroy({
       where: {
         id: id,
       },
     });
-    if(result){
-      return res.status(200).json({ status: 200, result: "Success"})
+
+    const deletePath =
+      path.resolve("./" + "/upload/images/") +
+      "/" +
+      deleteImg.dataValues.product_image;
+
+    if (fs.access(deletePath)) {
+      await fs.remove(deletePath);
     }
+
+    // console.log(deleteImg.dataValues.product_image);
+    
+    if (result) {
+      return res.status(200).json({ status: 200, result: "Success" });
+    }
+  } catch (err) {
+    return res.status(500).json({ status: 500, result: err });
   }
-  catch (err) {
-    return res.status(500).json({ status: 500, result: err})
+});
+
+//? Get Product By Id
+router.post("/product/:id", authorization, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await product.findAll({ where: { id: id } });
+    console.log(result);
+    if (result) {
+      return res.status(200).json({ status: 200, result: result });
+    }
+  } catch (err) {
+    console.log(err);
   }
-  
+});
+
+//? Update Product By Id
+router.put("/product/:id", authorization, (req, res) => {
+  const { id } = req.params;
+  try {
+    let form = new formidable.IncomingForm();
+    form.parse(req, async (error, fields, files) => {
+      const {
+        product_code,
+        product_stock,
+        product_price,
+        product_name,
+        product_active,
+        product_image,
+        updatedBy,
+      } = fields;
+
+      console.log(fields);
+
+      const result_update = await product.update(
+        {
+          product_code: product_code,
+          product_stock: product_stock,
+          product_name: product_name,
+          product_price: product_price,
+          product_active: product_active,
+          product_image: product_image,
+          updatedBy: updatedBy,
+        },
+        { where: { id: id } }
+      );
+      console.log("result_update", fields);
+      if (files.product_image) {
+        if (
+          files.product_image.type != undefined &&
+          files.product_image.type === "image/jpeg"
+        ) {
+          const data_img = await uploadImage(files, fields);
+          if (data_img.status === 200) {
+            return res.status(200).json({ status: 200, result: "Success" });
+          } else {
+            return res.status(500).json({ status: 500, result: data_img });
+          }
+        }
+      }
+      return res.status(200).json({ status: 200, result: "Success" });
+    });
+  } catch (err) {
+    return res.status(500).json({ status: 500, result: err });
+  }
 });
 
 module.exports = router;

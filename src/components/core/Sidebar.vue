@@ -27,9 +27,7 @@
               text-align-center
               fs-4
               text-white text-decoration-none
-              d-none
-              d-md-block
-              
+              d-none d-md-block
             "
           >
             <b>Menu</b>
@@ -65,6 +63,26 @@
               </div>
             </li>
             <!-- End  Menu Stock -->
+
+            <!-- Start  Menu Sell -->
+            <li>
+              <div class="nav-link px-0 align-middle">
+                <router-link class="text-decoration-none" to="/sell">
+                  <div class="row">
+                    <div class="col icon hover">
+                      <i class="fab fa-sellcast" />
+                      <span class="tooltiptext">Sell</span>
+                    </div>
+                    <div class="col d-none d-sm-block">
+                      <span class="ms-1 d-none d-sm-inline text-warning">
+                        Sell
+                      </span>
+                    </div>
+                  </div>
+                </router-link>
+              </div>
+            </li>
+            <!-- End  Menu Sell -->
 
             <!-- Start  Menu Report -->
             <li>
@@ -150,7 +168,7 @@
           <!-- End Main Sidebar -->
         </div>
       </div>
-      <div class="table-responsive col p-2 ">
+      <div class="table-responsive col p-2">
         <Content />
       </div>
     </div>

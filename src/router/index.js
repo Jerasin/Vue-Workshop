@@ -8,6 +8,7 @@ import Stock from "@/views/Stock.vue";
 import StockCreate from "@/views/StockCreate.vue";
 import StockEdit from "@/views/StockEdit.vue";
 import Users from "@/views/Users.vue";
+import Sell from '@/views/Sell.vue';
 
 
 const routes = [
@@ -58,6 +59,12 @@ const routes = [
     meta: { isSecured: true },
     name: "Users",
     component: Users,
+  },
+  {
+    path: "/sell",
+    meta: { isSecured: true },
+    name: "Sell",
+    component: Sell,
   },
   {
     path: "/",

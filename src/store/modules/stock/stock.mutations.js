@@ -5,6 +5,7 @@ export default {
     state.isCreate = null;
     state.isError = false;
     state.isDelete = false;
+    state.isUpdate = false;
   },
 
   SET_GET(state, value) {
@@ -13,6 +14,25 @@ export default {
     state.isCreate = null;
     state.isError = false;
     state.isDelete = false;
+    state.isUpdate = false;
+  },
+
+  SET_GET_BYID(state, value) {
+    state.isFetching_STOCK = false;
+    state.isGet = value;
+    state.isCreate = null;
+    state.isError = false;
+    state.isDelete = false;
+    state.isUpdate = false;
+  },
+
+  SET_UPDATE(state, value) {
+    state.isFetching_STOCK = false;
+    state.isGet = false;
+    state.isCreate = null;
+    state.isError = false;
+    state.isDelete = false;
+    state.isUpdate = value;
   },
 
   SET_CREATE(state, value) {
@@ -21,6 +41,7 @@ export default {
     state.isError = false;
     state.isGet = null;
     state.isDelete = false;
+    state.isUpdate = false;
   },
 
   SET_ERROR(state){
@@ -29,6 +50,7 @@ export default {
     state.isError = true;
     state.isGet = null;
     state.isDelete = false;
+    state.isUpdate = false;
   },
 
   SET_DELETE(state){
@@ -37,5 +59,6 @@ export default {
     state.isError = false;
     state.isGet = null;
     state.isDelete = true;
+    state.isUpdate = false;
   }
 };

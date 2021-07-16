@@ -11,6 +11,15 @@ export const getProducts = async () => {
   }
 };
 
+export const getProductById = async (id) => {
+  try {
+    return await httpClient.post(`${server.GET_PRODUCTBYID_URL}/${id}`);
+  } catch (err) {
+    localStorage.clear();
+    console.log(err);
+  }
+};
+
 export const createProduct = async (form) => {
   try {
     return await httpClient.post(server.CREATE_PRODUCT_URL, form);
@@ -21,6 +30,16 @@ export const createProduct = async (form) => {
     //   }
   } catch (err) {
     // router.push("/stock");
+    localStorage.clear();
+    console.log(err);
+  }
+};
+
+
+export const updatedProductById = async (form,id) => {
+  try {
+    return await httpClient.put(`${server.UPDATE_PRODUCTBYID_URL}/${id}` , form);
+  } catch (err) {
     localStorage.clear();
     console.log(err);
   }
